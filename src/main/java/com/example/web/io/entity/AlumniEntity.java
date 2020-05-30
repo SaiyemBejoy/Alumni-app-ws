@@ -34,9 +34,6 @@ public class AlumniEntity implements Serializable {
 	@Column(nullable = false, length = 100, unique = true)
 	private String email;
 
-	@Column(nullable = false, length = 20)
-	private String password;
-
 	@Column(nullable = false, length = 100)
 	private String university_email;
 
@@ -117,14 +114,6 @@ public class AlumniEntity implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getUniversity_email() {
