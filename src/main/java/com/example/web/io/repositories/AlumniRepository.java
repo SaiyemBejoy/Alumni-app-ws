@@ -1,4 +1,4 @@
-package com.example.web.io.repository;
+package com.example.web.io.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

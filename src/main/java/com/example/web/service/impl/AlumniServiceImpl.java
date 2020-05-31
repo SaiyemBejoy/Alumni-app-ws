@@ -1,14 +1,17 @@
 package com.example.web.service.impl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.web.io.entity.AlumniEntity;
-import com.example.web.io.repository.AlumniRepository;
+import com.example.web.io.repositories.AlumniRepository;
 import com.example.web.service.AlumniService;
 import com.example.web.shared.Utils;
 import com.example.web.shared.dto.AlumniDto;
@@ -47,9 +50,24 @@ public class AlumniServiceImpl implements AlumniService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		AlumniEntity alumniEntity = alumniRepository.findByEmail(email);
+		
+		if(alumniEntity == null) throw new UsernameNotFoundException(email);
+		
+		return new User(alumniEntity.getEmail(), alumniEntity.getEncryptedPassword(), new ArrayList<>());
+	}
+
+	@Override
+	public AlumniDto getUser(String email) {
+		AlumniEntity alumniEntity = alumniRepository.findByEmail(email);
+		
+		if(alumniEntity == null) throw new UsernameNotFoundException(email);
+		
+		AlumniDto returnValue = new AlumniDto();
+		BeanUtils.copyProperties(alumniEntity, returnValue);
+		
+		return returnValue;
 	}
 
 }
