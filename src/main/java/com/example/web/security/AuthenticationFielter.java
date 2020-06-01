@@ -60,7 +60,7 @@ public class AuthenticationFielter extends UsernamePasswordAuthenticationFilter 
 				.compact();
 		
 		AlumniService alumniService = (AlumniService) SpringApplicationContext.getBean("alumniServiceImpl");
-		AlumniDto alumniDto = alumniService.getUser(userName);
+		AlumniDto alumniDto = alumniService.getAlumni(userName);
 		
 		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 		response.addHeader("UserId", alumniDto.getUserId());

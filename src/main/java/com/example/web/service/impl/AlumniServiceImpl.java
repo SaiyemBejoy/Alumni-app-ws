@@ -29,7 +29,7 @@ public class AlumniServiceImpl implements AlumniService {
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public AlumniDto createUser(AlumniDto alumni) {
+	public AlumniDto createAlumni(AlumniDto alumni) {
 		if (alumniRepository.findByEmail(alumni.getEmail()) != null)
 			throw new RuntimeException("Record already exists!");
 
@@ -59,12 +59,24 @@ public class AlumniServiceImpl implements AlumniService {
 	}
 
 	@Override
-	public AlumniDto getUser(String email) {
+	public AlumniDto getAlumni(String email) {
 		AlumniEntity alumniEntity = alumniRepository.findByEmail(email);
 		
 		if(alumniEntity == null) throw new UsernameNotFoundException(email);
 		
 		AlumniDto returnValue = new AlumniDto();
+		BeanUtils.copyProperties(alumniEntity, returnValue);
+		
+		return returnValue;
+	}
+
+	@Override
+	public AlumniDto getAlumniByUserId(String userId) {
+		AlumniDto returnValue = new AlumniDto();
+		AlumniEntity alumniEntity = alumniRepository.findByUserId(userId);
+		
+		if(alumniEntity == null) throw new UsernameNotFoundException(userId);
+		
 		BeanUtils.copyProperties(alumniEntity, returnValue);
 		
 		return returnValue;

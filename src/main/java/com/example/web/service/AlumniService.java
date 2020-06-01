@@ -6,6 +6,7 @@ import com.example.web.shared.dto.AlumniDto;
 
 public interface AlumniService extends UserDetailsService{
 
-	AlumniDto createUser(AlumniDto alumni);
-	AlumniDto getUser(String email);
+	AlumniDto createAlumni(AlumniDto alumni);
+	AlumniDto getAlumni(String email);
+	AlumniDto getAlumniByUserId(String userId);
 }
