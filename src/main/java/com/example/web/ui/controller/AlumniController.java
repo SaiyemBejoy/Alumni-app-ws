@@ -2,6 +2,7 @@ package com.example.web.ui.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,8 @@ public class AlumniController {
 	@Autowired
 	AlumniService alumniService;
 	 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}",
+			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public AlumniRest getAlumni(@PathVariable String id) {
 		AlumniRest returnValue = new AlumniRest();
 		
@@ -33,7 +35,10 @@ public class AlumniController {
 		return returnValue;
 	}
 	
-	@PostMapping 
+	@PostMapping(
+			consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, 
+			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+			)
 	public AlumniRest createAlumni(@RequestBody AlumniDetailsRequestModel alumniDetails) {
 		AlumniRest returnValue = new AlumniRest();
 		
